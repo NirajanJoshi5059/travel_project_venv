@@ -5,6 +5,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from useraccount.forms import SignUpForm
 from django.contrib import messages
 # Create your views here.
+def dashboard(request):
+    return render(request, 'dashboard.html')
+    
 def login_view(request):
     form= AuthenticationForm(request.POST or None)
     if request.POST:
@@ -15,6 +18,8 @@ def login_view(request):
             login(request, user)
             #return HttpResponseRedirect(reverse(''))
             return HttpResponseRedirect('/admin/')
+        else:
+            messages.info(request, 'Username or Password is Incorrect')
     context={'form':form}
     return render(request, 'login.html', context)
 
